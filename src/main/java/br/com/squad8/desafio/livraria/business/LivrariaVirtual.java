@@ -30,14 +30,14 @@ public class LivrariaVirtual {
     }
 
     public void listarLivrosImpressos(){
-        List<Livro> a = livroRepository.findLivrosByType("Impresso");
-        for (Livro livro: a) {
+        List<Livro> listaLivros = livroRepository.findLivrosByType("Impresso");
+        for (Livro livro: listaLivros) {
             System.out.println(livro);
         }
     }
     public void listarLivrosEletronicos(){
-        List<Livro> a = livroRepository.findLivrosByType("Eletronico");
-        for (Livro livro: a) {
+        List<Livro> listaLivros = livroRepository.findLivrosByType("Eletronico");
+        for (Livro livro: listaLivros) {
             System.out.println(livro);
         }
     }

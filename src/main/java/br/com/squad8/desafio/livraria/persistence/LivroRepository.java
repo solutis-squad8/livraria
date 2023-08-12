@@ -8,5 +8,5 @@ import java.util.List;
 
 @Repository
 public interface LivroRepository extends JpaRepository<Livro, Long> {
-    List<Livro> findLivrosByType(String a);
+    List<Livro> findLivrosByType(String tipo);
 }
