@@ -1,30 +1,27 @@
 package br.com.squad8.desafio.livraria.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
-public class Livro {
+public abstract class Livro {
 
     @Id
-    @GeneratedValue( strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    @Column(nullable = false)
+    private String titulo;
+    @Column(nullable = false)
+    private String autores;
+    @Column(nullable = false)
+    private String editora;
+    @Column(nullable = false)
+    private float preco;
 
-    private String title;
-
-    private String author;
-
-    private String price;
-
-    public Livro() {
-    }
-
-    public Livro(String title, String author, String price) {
-        this.title = title;
-        this.author = author;
-        this.price = price;
+    public Livro(String titulo, String autores, String editora, float preco) {
+        this.titulo = titulo;
+        this.autores = autores;
+        this.editora = editora;
+        this.preco = preco;
     }
 
     public Long getId() {
@@ -35,27 +32,48 @@ public class Livro {
         this.id = id;
     }
 
-    public String getTitle() {
-        return title;
+    public String getTitulo() {
+        return titulo;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
     }
 
-    public String getAuthor() {
-        return author;
+    public String getAutores() {
+        return autores;
     }
 
-    public void setAuthor(String author) {
-        this.author = author;
+    public void setAutores(String autores) {
+        this.autores = autores;
     }
 
-    public String getPrice() {
-        return price;
+    public String getEditora() {
+        return editora;
     }
 
-    public void setPrice(String price) {
-        this.price = price;
+    public void setEditora(String editora) {
+        this.editora = editora;
     }
+
+    public float getPreco() {
+        return preco;
+    }
+
+    public void setPreco(float preco) {
+        this.preco = preco;
+    }
+
+    @Override
+    public String toString() {
+        return "Livro{" +
+                "id=" + id +
+                ", titulo='" + titulo + '\'' +
+                ", autores='" + autores + '\'' +
+                ", editora='" + editora + '\'' +
+                ", preco=" + preco +
+                '}';
+    }
+
+
 }
