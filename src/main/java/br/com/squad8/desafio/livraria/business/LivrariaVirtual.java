@@ -46,6 +46,14 @@ public class LivrariaVirtual {
         }
     }
 
+    public void listarLivros(){
+        List<Livro> livros = livroRepository.findAll();
+        for (Livro livro : livros){
+            System.out.println(livro);
+
+        }
+    }
+
     public void realizarVenda(Venda venda){
         vendaRepository.save(venda);
     }
