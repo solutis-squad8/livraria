@@ -3,6 +3,7 @@ package br.com.squad8.desafio.livraria.domain;
 import jakarta.persistence.*;
 
 @Entity(name = "livro")
+@DiscriminatorColumn(name = "type")
 public abstract class Livro {
 
     @Id
@@ -16,6 +17,8 @@ public abstract class Livro {
     private String editora;
     @Column(nullable = false)
     private float preco;
+    @Column(insertable=false, updatable=false)
+    private String type;
 
     public Livro(String titulo, String autores, String editora, float preco) {
         this.titulo = titulo;
