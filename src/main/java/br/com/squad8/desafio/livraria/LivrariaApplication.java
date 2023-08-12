@@ -4,6 +4,7 @@ import br.com.squad8.desafio.livraria.business.LivrariaVirtual;
 import br.com.squad8.desafio.livraria.domain.Eletronico;
 import br.com.squad8.desafio.livraria.domain.Impresso;
 import br.com.squad8.desafio.livraria.domain.Livro;
+import br.com.squad8.desafio.livraria.domain.Venda;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -42,6 +43,15 @@ public class LivrariaApplication implements CommandLineRunner {
         livrariaVirtual.cadastrarLivro(entity5);
         livrariaVirtual.cadastrarLivro(entity6);
         livrariaVirtual.cadastrarLivro(entity7);
+
+        Venda venda = new Venda(1L,"Cainan", 1, 200);
+        Livro livro = livrariaVirtual.buscarLivroPorId(1L);
+
+        System.out.println("-----Teste de Vendas-----");
+        System.out.println(livro);
+        venda.addLivro(livro,0);
+
+        livrariaVirtual.realizarVenda(venda);
 
 		System.out.println("Buscando livro...");
 
