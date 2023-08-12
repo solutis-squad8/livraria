@@ -24,6 +24,10 @@ public abstract class Livro {
         this.preco = preco;
     }
 
+    public Livro() {
+
+    }
+
     public Long getId() {
         return id;
     }
@@ -72,7 +76,7 @@ public abstract class Livro {
                 ", autores='" + autores + '\'' +
                 ", editora='" + editora + '\'' +
                 ", preco=" + preco +
-                '}';
+                ", ";
     }
 
 
