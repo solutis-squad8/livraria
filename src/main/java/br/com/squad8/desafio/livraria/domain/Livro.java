@@ -2,7 +2,7 @@ package br.com.squad8.desafio.livraria.domain;
 
 import jakarta.persistence.*;
 
-@Entity
+@Entity(name = "livro")
 public abstract class Livro {
 
     @Id
