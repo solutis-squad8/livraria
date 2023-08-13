@@ -1,8 +1,8 @@
 package br.com.squad8.desafio.livraria.domain;
 
-import jakarta.persistence.*;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,28 +11,23 @@ import java.util.List;
 public class Venda{
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long numero;
-
     private String cliente;
-
-    private float valor;
-
+    private Float valor;
     @OneToMany
     private List<Livro> livros;
+    private static Long numVendas = 0L;
 
-    private static Long numVendas;
-
-    public Venda(Long numero, String cliente, int numItens, float valor) {
-        super();
-        this.numero = numero;
+    public Venda(String cliente, Float valor) {
         this.cliente = cliente;
         this.valor = valor;
         this.livros = new ArrayList<>();
+        numVendas++;
+        this.numero = numVendas;
     }
 
     public Venda() {
-        super();
+
     }
 
     public Long getNumero() {
@@ -51,11 +46,11 @@ public class Venda{
         this.cliente = cliente;
     }
 
-    public float getValor() {
+    public Float getValor() {
         return valor;
     }
 
-    public void setValor(float valor) {
+    public void setValor(Float valor) {
         this.valor = valor;
     }
 
@@ -63,7 +58,14 @@ public class Venda{
         return numVendas;
     }
 
-    public void addLivro(Livro livro, int index){
+    public void addLivro(Livro livro){
         this.livros.add(livro);
+    }
+
+    public void listarLivros() {
+        for (Livro livro : livros) {
+            System.out.println("Livro " + livros.indexOf(livro) + ": \n" + livro);
+            System.out.println();
+        }
     }
 }

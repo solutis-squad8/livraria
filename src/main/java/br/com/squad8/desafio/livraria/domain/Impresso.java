@@ -8,10 +8,9 @@ public class Impresso extends Livro{
 
     private Double frete;
 
+    private Integer estoque;
 
-    private int estoque;
-
-    public Impresso(String titulo, String autores, String editora, float preco, Double frete, int estoque) {
+    public Impresso(String titulo, String autores, String editora, Float preco, Double frete, Integer estoque) {
         super(titulo, autores, editora, preco);
         this.frete = frete;
         this.estoque = estoque;
@@ -29,11 +28,11 @@ public class Impresso extends Livro{
         this.frete = frete;
     }
 
-    public int getEstoque() {
+    public Integer getEstoque() {
         return estoque;
     }
 
-    public void setEstoque(int estoque) {
+    public void setEstoque(Integer estoque) {
         this.estoque = estoque;
     }
 
@@ -44,9 +43,8 @@ public class Impresso extends Livro{
     @Override
     public String toString() {
         return  super.toString() +
-                "tipo=impresso" +
-                ", frete=" + frete +
-                ", estoque=" + estoque +
-                '}';
+                "\nTipo: impresso" +
+                "\nFrete: R$" + String.format("%.2f", frete) +
+                "\nEstoque: " + estoque;
     }
 }

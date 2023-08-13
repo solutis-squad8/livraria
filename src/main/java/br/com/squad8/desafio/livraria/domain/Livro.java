@@ -7,7 +7,7 @@ import jakarta.persistence.*;
 public abstract class Livro {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(nullable = false)
     private String titulo;
@@ -16,11 +16,11 @@ public abstract class Livro {
     @Column(nullable = false)
     private String editora;
     @Column(nullable = false)
-    private float preco;
-    @Column(insertable=false, updatable=false)
+    private Float preco;
+    @Column(insertable = false, updatable = false)
     private String type;
 
-    public Livro(String titulo, String autores, String editora, float preco) {
+    public Livro(String titulo, String autores, String editora, Float preco) {
         this.titulo = titulo;
         this.autores = autores;
         this.editora = editora;
@@ -63,23 +63,21 @@ public abstract class Livro {
         this.editora = editora;
     }
 
-    public float getPreco() {
+    public Float getPreco() {
         return preco;
     }
 
-    public void setPreco(float preco) {
+    public void setPreco(Float preco) {
         this.preco = preco;
     }
 
     @Override
     public String toString() {
-        return "Livro{" +
-                "id=" + id +
-                ", titulo='" + titulo + '\'' +
-                ", autores='" + autores + '\'' +
-                ", editora='" + editora + '\'' +
-                ", preco=" + preco +
-                ", ";
+        return "Id: " + id +
+                "\nTítulo: " + titulo +
+                "\nAutores: " + autores +
+                "\nEditora: " + editora +
+                "\nPreço: " + preco;
     }
 
 

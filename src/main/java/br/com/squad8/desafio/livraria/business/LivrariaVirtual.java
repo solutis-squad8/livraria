@@ -1,10 +1,11 @@
 package br.com.squad8.desafio.livraria.business;
 
+import br.com.squad8.desafio.livraria.domain.Eletronico;
+import br.com.squad8.desafio.livraria.domain.Impresso;
 import br.com.squad8.desafio.livraria.domain.Livro;
 import br.com.squad8.desafio.livraria.domain.Venda;
 import br.com.squad8.desafio.livraria.persistence.LivroRepository;
 import br.com.squad8.desafio.livraria.persistence.VendaRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,18 +13,26 @@ import java.util.NoSuchElementException;
 
 @Service
 public class LivrariaVirtual {
-    @Autowired
-    LivroRepository livroRepository;
-    @Autowired
-    VendaRepository vendaRepository;
+
+    private final LivroRepository livroRepository;
+    private final VendaRepository vendaRepository;
+
+    public LivrariaVirtual(LivroRepository livroRepository, VendaRepository vendaRepository) {
+        this.livroRepository = livroRepository;
+        this.vendaRepository = vendaRepository;
+    }
 
     private static final int MAX_IMPRESSOS = 10;
     private static final int MAX_ELETRONICOS = 20;
     private static final int MAX_VENDAS = 50;
 
-    private int numImpressos = 0;
-    private int numEletronicos = 0;
-    private int numVendas = 0;
+    private List<Impresso> impressos;
+    private List<Eletronico> eletronicos;
+    private List<Venda> vendas;
+
+    private Integer numImpressos = 0;
+    private Integer numEletronicos = 0;
+    private Integer numVendas = 0;
 
     public void cadastrarLivro (Livro livro){
         livroRepository.save(livro);
