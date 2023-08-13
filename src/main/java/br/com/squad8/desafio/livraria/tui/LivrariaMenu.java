@@ -4,26 +4,25 @@ import br.com.squad8.desafio.livraria.business.LivrariaVirtual;
 import br.com.squad8.desafio.livraria.domain.Eletronico;
 import br.com.squad8.desafio.livraria.domain.Impresso;
 import br.com.squad8.desafio.livraria.domain.Livro;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.InputMismatchException;
+import java.util.List;
 import java.util.Scanner;
 
 @Component
 public class LivrariaMenu {
 
-    private static LivrariaVirtual livrariaVirtual;
+    @Autowired
+    private LivrariaVirtual livrariaVirtual;
 
-    public LivrariaMenu(LivrariaVirtual livrariaVirtual) {
-        LivrariaMenu.livrariaVirtual = livrariaVirtual;
-    }
-
-    public static void iniciarMenu() {
+    public void iniciarMenu() {
         Scanner input = new Scanner(System.in);
 
         while (true) {
             System.out.println("""
-                    Menu de Opções:
+                    --- Menu de Opções ---
                     1. Cadastrar livro
                     2. Realizar venda
                     3. Listar Livros
@@ -48,7 +47,7 @@ public class LivrariaMenu {
                 case 1:
                     menuCadastrarLivro(input); //metodo criado abaixo
                 case 2:
-                    // aqui vai ser a func de vendas.
+                    menuRealizarVenda(input);// aqui vai ser a func de vendas.
                     break;
                 case 3:
                     livrariaVirtual.listarLivros(); // talvez implementar a divisao qual é eletronico qual é impresso
@@ -56,7 +55,7 @@ public class LivrariaMenu {
                 case 4:
                     // aqui a func de listar vendas.
                 case 5:
-                    System.out.println("Programa Encerrado! Volte Sempre");
+                    System.out.println("Programa Encerrado! Volte Sempre"); //Finaliza a aplicação
                     return;
                 default:
                     System.out.println("Opção inválida. Experimente digitar um número como opção");
@@ -65,7 +64,7 @@ public class LivrariaMenu {
     }
 
     //Cadastra livros até o usuário voltar ao menu
-    private static void menuCadastrarLivro(Scanner input) {
+    private void menuCadastrarLivro(Scanner input) {
         while (true) {
             System.out.println("Adicionando livro:");
             System.out.print("""
@@ -110,5 +109,13 @@ public class LivrariaMenu {
             livrariaVirtual.cadastrarLivro(livro);
             System.out.println();
         }
+    }
+
+    private void menuRealizarVenda(Scanner input) {
+
+    }
+
+    private void menuListarLivros(List<Livro> listaLivros) {
+
     }
 }

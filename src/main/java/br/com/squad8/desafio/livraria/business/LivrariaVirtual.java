@@ -6,6 +6,7 @@ import br.com.squad8.desafio.livraria.domain.Livro;
 import br.com.squad8.desafio.livraria.domain.Venda;
 import br.com.squad8.desafio.livraria.persistence.LivroRepository;
 import br.com.squad8.desafio.livraria.persistence.VendaRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,6 +21,7 @@ public class LivrariaVirtual {
     public LivrariaVirtual(LivroRepository livroRepository, VendaRepository vendaRepository) {
         this.livroRepository = livroRepository;
         this.vendaRepository = vendaRepository;
+
     }
 
     private static final int MAX_IMPRESSOS = 10;
@@ -35,7 +37,14 @@ public class LivrariaVirtual {
     private Integer numVendas = 0;
 
     public void cadastrarLivro (Livro livro){
+        if (livro.getClass() == Impresso.class) {
+            impressos.add((Impresso) livro);
+        }
+        else {
+            eletronicos.add((Eletronico) livro);
+        }
         livroRepository.save(livro);
+
     }
 
     public Livro buscarLivroPorId(Long id){
@@ -55,15 +64,12 @@ public class LivrariaVirtual {
         }
     }
 
-    public void listarLivros(){
-        List<Livro> livros = livroRepository.findAll();
-        for (Livro livro : livros){
-            System.out.println(livro);
-
-        }
+    public List<Livro> listarLivros(){
+        return livroRepository.findAll();
     }
 
     public void realizarVenda(Venda venda){
         vendaRepository.save(venda);
     }
+
 }

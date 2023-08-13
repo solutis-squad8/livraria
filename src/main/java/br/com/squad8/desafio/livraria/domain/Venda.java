@@ -3,12 +3,13 @@ package br.com.squad8.desafio.livraria.domain;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.Transient;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-public class Venda{
+public class Venda {
 
     @Id
     private Long numero;
@@ -16,6 +17,7 @@ public class Venda{
     private Float valor;
     @OneToMany
     private List<Livro> livros;
+    @Transient
     private static Long numVendas = 0L;
 
     public Venda(String cliente, Float valor) {
@@ -28,6 +30,14 @@ public class Venda{
 
     public Venda() {
 
+    }
+
+    public List<Livro> getLivros() {
+        return livros;
+    }
+
+    public void setLivros(List<Livro> livros) {
+        this.livros = livros;
     }
 
     public Long getNumero() {
@@ -58,7 +68,7 @@ public class Venda{
         return numVendas;
     }
 
-    public void addLivro(Livro livro){
+    public void addLivro(Livro livro) {
         this.livros.add(livro);
     }
 
