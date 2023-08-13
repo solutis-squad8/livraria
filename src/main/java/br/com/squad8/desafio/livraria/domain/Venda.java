@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-public class Venda extends Vendas{
+public class Venda{
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -18,18 +18,17 @@ public class Venda extends Vendas{
 
     private float valor;
 
-    @OneToMany(mappedBy = "Livro")
+    @OneToMany
     private List<Livro> livros;
 
     private static Long numVendas;
 
-    public Venda(Long numero, String cliente, float valor) {
+    public Venda(Long numero, String cliente, int numItens, float valor) {
         super();
         this.numero = numero;
         this.cliente = cliente;
         this.valor = valor;
         this.livros = new ArrayList<>();
-        numVendas = super.getNumVendas();
     }
 
     public Venda() {
@@ -62,5 +61,9 @@ public class Venda extends Vendas{
 
     public Long getNumVendas() {
         return numVendas;
+    }
+
+    public void addLivro(Livro livro, int index){
+        this.livros.add(livro);
     }
 }

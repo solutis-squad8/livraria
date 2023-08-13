@@ -1,7 +1,9 @@
 package br.com.squad8.desafio.livraria.business;
 
 import br.com.squad8.desafio.livraria.domain.Livro;
+import br.com.squad8.desafio.livraria.domain.Venda;
 import br.com.squad8.desafio.livraria.persistence.LivroRepository;
+import br.com.squad8.desafio.livraria.persistence.VendaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +14,8 @@ import java.util.NoSuchElementException;
 public class LivrariaVirtual {
     @Autowired
     LivroRepository livroRepository;
+    @Autowired
+    VendaRepository vendaRepository;
 
     private static final int MAX_IMPRESSOS = 10;
     private static final int MAX_ELETRONICOS = 20;
@@ -50,5 +54,7 @@ public class LivrariaVirtual {
         }
     }
 
-
+    public void realizarVenda(Venda venda){
+        vendaRepository.save(venda);
+    }
 }
