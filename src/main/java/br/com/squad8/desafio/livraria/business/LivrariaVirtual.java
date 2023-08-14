@@ -130,6 +130,18 @@ public class LivrariaVirtual {
         return livroRepository.findAll();
     }
 
+    public Venda buscarVendaPorId(Long id){
+        return vendaRepository.findById(id).orElseThrow(() -> new NoSuchElementException(String.valueOf(id)));
+    }
+
+    public List<Venda> buscarVendaPorCliente(String cliente) {
+        return vendaRepository.findVendasByClienteContains(cliente);
+    }
+
+    public List<Venda> listarVendas(){
+        return vendaRepository.findAll();
+    }
+
     public void realizarVenda(Venda venda){
         if(numVendas < MAX_VENDAS) {
             vendas.add(venda);

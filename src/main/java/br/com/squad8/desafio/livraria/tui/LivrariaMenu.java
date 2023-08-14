@@ -55,7 +55,8 @@ public class LivrariaMenu {
                     menuListarLivros(); // metodo com opções de listarLivros abaixo
                     continue;
                 case 4:
-                    // aqui a func de listar vendas.
+                    menuListarVendas(); // aqui a func de listar vendas.
+                    continue;
                 case 5:
                     System.out.println("Programa Encerrado! Volte Sempre"); //Finaliza a aplicação
                     return;
@@ -122,7 +123,7 @@ public class LivrariaMenu {
                 livrariaVirtual.cadastrarLivro(livro);
                 System.out.println();
             } catch (InputMismatchException e) {
-                System.out.println("Opção inválida! Tente novamente utilizando vírgula. Ex: 50,95");
+                System.out.println("Opção inválida! Tente novamente utilizando número com vírgula. Ex: 50,95");
                 input.nextLine();
             }
         }
@@ -145,7 +146,14 @@ public class LivrariaMenu {
                                         
                     Escolha uma opção:\s""");
 
-            int opcao = input.nextInt();
+            int opcao;
+            try {
+                opcao = input.nextInt();
+            } catch (InputMismatchException e) {
+                input.nextLine();
+                System.out.println("Opção inválida! Tente novamente.");
+                continue;
+            }
 
             if (opcao == 4) {
                 System.out.println("Retornando ao menu!");
@@ -194,6 +202,7 @@ public class LivrariaMenu {
                 case 3:
                     System.out.println("--- Carrinho ---");
                     venda.listarLivros();
+                    System.out.println("\nValor total: R$" + String.format("%.2f", valor));
                     System.out.print("""
                                                         
                             1. Sim
@@ -209,7 +218,7 @@ public class LivrariaMenu {
                         venda.setValor(valor);
                         livrariaVirtual.realizarVenda(venda);
                         System.out.println("Seu pedido foi finalizado!");
-                        break;
+                        return;
                     }
                     continue;
                 default:
@@ -232,44 +241,138 @@ public class LivrariaMenu {
                                         
                     Escolha uma opção:\s""");
 
-            int tipoLivro = input.nextInt();
-            switch (tipoLivro) {
+            int opcao;
+            try {
+                opcao = input.nextInt();
+            } catch (InputMismatchException e) {
+                input.nextLine();
+                System.out.println("Opção inválida! Tente novamente.");
+                continue;
+            }
+            try {
+                switch (opcao) {
+                    case 1:
+                        System.out.print("Id do livro: ");
+                        Long id = input.nextLong();
+                        Livro livro = livrariaVirtual.buscarLivroPorId(id);
+                        System.out.println(livro);
+                        System.out.println();
+                        continue;
+                    case 2:
+                        List<Livro> listaLivrosImpressos = livrariaVirtual.listarLivrosImpressos();
+                        for (Livro l : listaLivrosImpressos) {
+                            System.out.println(l);
+                            System.out.println();
+                        }
+                        continue;
+                    case 3:
+                        List<Livro> listaLivrosEletronicos = livrariaVirtual.listarLivrosEletronicos();
+                        for (Livro l : listaLivrosEletronicos) {
+                            System.out.println(l);
+                            System.out.println();
+                        }
+                        continue;
+                    case 4:
+                        List<Livro> listaLivros = livrariaVirtual.listarLivros();
+                        for (Livro l : listaLivros) {
+                            System.out.println(l);
+                            System.out.println();
+                        }
+                        continue;
+                    case 5:
+                        System.out.println("Retornando ao menu!");
+                        System.out.println();
+                        return;
+                    default:
+                        System.out.println("Opção inválida. Experimente digitar um número entre 1 a 5 como opção");
+                        System.out.println();
+                }
+            } catch (NoSuchElementException e) {
+                System.out.println("Nenhum livro encontrado!");
+            }
+        }
+    }
+
+    private void menuListarVendas() {
+        while (true) {
+            System.out.println("--- Listando vendas ---");
+            System.out.print("""
+                    1. Venda por id
+                    2. Venda por cliente
+                    3. Todas as vendas
+                    4. Retornar ao menu
+                                        
+                    Escolha uma opção:\s""");
+
+            int opcao;
+            try {
+                opcao = input.nextInt();
+                input.nextLine();
+            } catch (InputMismatchException e) {
+                input.nextLine();
+                System.out.println("Opção inválida! Tente novamente.");
+                continue;
+            }
+
+            if (opcao == 4) {
+                System.out.println("Retornando ao menu!");
+                break;
+            }
+
+            switch (opcao) {
                 case 1:
-                    System.out.print("Id do livro: ");
-                    Long id = input.nextLong();
-                    Livro livro = livrariaVirtual.buscarLivroPorId(id);
-                    System.out.println(livro);
+                    System.out.print("Id da venda: ");
+                    long id;
+                    try {
+                        id = input.nextLong();
+                    } catch (InputMismatchException e) {
+                        input.nextLine();
+                        System.out.println("Opção inválida! Tente novamente.");
+                        continue;
+                    }
+                    Venda venda;
+                    try {
+                        venda = livrariaVirtual.buscarVendaPorId(id);
+                    } catch (NoSuchElementException e) {
+                        System.out.println("Nenhuma venda encontrada!");
+                        System.out.println();
+                        return;
+                    }
+
+                    System.out.println(venda); // Arrumar venda
                     System.out.println();
                     continue;
                 case 2:
-                    List<Livro> listaLivrosImpressos = livrariaVirtual.listarLivrosImpressos();
-                    for (Livro l : listaLivrosImpressos) {
-                        System.out.println(l);
+                    System.out.print("Nome do cliente: ");
+                    String cliente = input.nextLine();
+                    List<Venda> vendas = livrariaVirtual.buscarVendaPorCliente(cliente);
+                    if (vendas.isEmpty()) {
+                        System.out.println("Nenhuma venda encontrada!");
+                        System.out.println();
+                        continue;
+                    }
+                    for (Venda v : vendas) {
+                        System.out.println(v);
                         System.out.println();
                     }
                     continue;
                 case 3:
-                    List<Livro> listaLivrosEletronicos = livrariaVirtual.listarLivrosEletronicos();
-                    for (Livro l : listaLivrosEletronicos) {
-                        System.out.println(l);
+                    List<Venda> todasVendas = livrariaVirtual.listarVendas();
+                    if (todasVendas.isEmpty()) {
+                        System.out.println("Nenhuma venda encontrada!");
+                        System.out.println();
+                        return;
+                    }
+                    for (Venda v : todasVendas) {
+                        System.out.println(v);
                         System.out.println();
                     }
                     continue;
-                case 4:
-                    List<Livro> listaLivros = livrariaVirtual.listarLivros();
-                    for (Livro l : listaLivros) {
-                        System.out.println(l);
-                        System.out.println();
-                    }
-                    continue;
-                case 5:
-                    System.out.println("Retornando ao menu!");
-                    System.out.println();
-                    return;
                 default:
-                    System.out.println("Opção inválida. Experimente digitar um número entre 1 a 5 como opção");
+                    System.out.println("Opção inválida! Tente novamente.");
                     System.out.println();
             }
+
         }
     }
 }

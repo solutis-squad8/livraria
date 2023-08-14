@@ -12,19 +12,21 @@ public class Venda {
     private Long numero;
     private String cliente;
     private Float valor;
-    @ManyToMany
-    private List<Livro> livros = new ArrayList<>();
+    @ManyToMany(fetch = FetchType.EAGER)
+    private List<Livro> livros;
     @Transient
     private static Long numVendas = 0L;
 
     public Venda(String cliente, Float valor) {
         this.cliente = cliente;
         this.valor = valor;
+        this.livros = new ArrayList<>();
         numVendas++;
         this.numero = numVendas;
     }
 
     public Venda() {
+        this.livros = new ArrayList<>();
         numVendas++;
         this.numero = numVendas;
     }
@@ -71,8 +73,24 @@ public class Venda {
 
     public void listarLivros() {
         for (Livro livro : livros) {
-            System.out.println("Livro " + (livros.indexOf(livro) + 1)  + ": \n" + livro);
+            System.out.println("--- Livro " + (livros.indexOf(livro) + 1)  + " ---\n" + livro);
             System.out.println();
         }
+    }
+
+    private String printarLivros(List<Livro> livros) {
+        StringBuilder imprimir = new StringBuilder();
+        for (Livro livro : livros) {
+            imprimir.append(livro).append("\n");
+        }
+        return imprimir.toString();
+    }
+
+    @Override
+    public String toString() {
+        return "Número: " + numero +
+                "\nCliente: '" + cliente +
+                "\nValor: R$" + String.format("%.2f", valor)+
+                "\nLivros:\n" + printarLivros(livros);
     }
 }
