@@ -201,6 +201,10 @@ public class LivrariaMenu {
                             Finalizar compra?\s""");
                     opcao = input.nextInt();
                     if (opcao == 1) {
+                        if (venda.getLivros().isEmpty()) {
+                            System.out.println("Não é possível realizar vendas sem cadastrar pelo menos um livro.\n");
+                            continue;
+                        }
                         venda.setCliente(nome);
                         venda.setValor(valor);
                         livrariaVirtual.realizarVenda(venda);
