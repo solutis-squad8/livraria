@@ -1,9 +1,6 @@
 package br.com.squad8.desafio.livraria.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Transient;
+import jakarta.persistence.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,29 +12,21 @@ public class Venda {
     private Long numero;
     private String cliente;
     private Float valor;
-    @OneToMany
-    private List<Livro> livros;
+    @ManyToMany
+    private List<Livro> livros = new ArrayList<>();
     @Transient
     private static Long numVendas = 0L;
 
     public Venda(String cliente, Float valor) {
         this.cliente = cliente;
         this.valor = valor;
-        this.livros = new ArrayList<>();
         numVendas++;
         this.numero = numVendas;
     }
 
     public Venda() {
-
-    }
-
-    public List<Livro> getLivros() {
-        return livros;
-    }
-
-    public void setLivros(List<Livro> livros) {
-        this.livros = livros;
+        numVendas++;
+        this.numero = numVendas;
     }
 
     public Long getNumero() {
@@ -64,6 +53,14 @@ public class Venda {
         this.valor = valor;
     }
 
+    public List<Livro> getLivros() {
+        return livros;
+    }
+
+    public void setLivros(List<Livro> livros) {
+        this.livros = livros;
+    }
+
     public Long getNumVendas() {
         return numVendas;
     }
@@ -74,7 +71,7 @@ public class Venda {
 
     public void listarLivros() {
         for (Livro livro : livros) {
-            System.out.println("Livro " + livros.indexOf(livro) + ": \n" + livro);
+            System.out.println("Livro " + (livros.indexOf(livro) + 1)  + ": \n" + livro);
             System.out.println();
         }
     }
