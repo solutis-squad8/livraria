@@ -122,7 +122,7 @@ public class LivrariaMenu {
                 livrariaVirtual.cadastrarLivro(livro);
                 System.out.println();
             } catch (InputMismatchException e) {
-                System.out.println("Opção inválida! Tente novamente");
+                System.out.println("Opção inválida! Tente novamente utilizando vírgula. Ex: 50,95");
                 input.nextLine();
             }
         }
