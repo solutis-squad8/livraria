@@ -6,29 +6,28 @@ import br.com.squad8.desafio.livraria.domain.Livro;
 import br.com.squad8.desafio.livraria.domain.Venda;
 import br.com.squad8.desafio.livraria.persistence.LivroRepository;
 import br.com.squad8.desafio.livraria.persistence.VendaRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 
 @Service
 public class LivrariaVirtual {
 
-    private final LivroRepository livroRepository;
-    private final VendaRepository vendaRepository;
-
-    public LivrariaVirtual(LivroRepository livroRepository, VendaRepository vendaRepository) {
-        this.livroRepository = livroRepository;
-        this.vendaRepository = vendaRepository;
-    }
+    @Autowired
+    private LivroRepository livroRepository;
+    @Autowired
+    private VendaRepository vendaRepository;
 
     private static final int MAX_IMPRESSOS = 10;
     private static final int MAX_ELETRONICOS = 20;
     private static final int MAX_VENDAS = 50;
 
-    private List<Impresso> impressos;
-    private List<Eletronico> eletronicos;
-    private List<Venda> vendas;
+    private List<Livro> impressos = new ArrayList<>();
+    private List<Livro> eletronicos = new ArrayList<>();
+    private List<Venda> vendas = new ArrayList<>();
 
     private Integer numImpressos = 0;
     private Integer numEletronicos = 0;
@@ -65,5 +64,16 @@ public class LivrariaVirtual {
 
     public void realizarVenda(Venda venda){
         vendaRepository.save(venda);
+    }
+
+    public void sincronizarListas() {
+        impressos = livroRepository.findLivrosByType("Impresso");
+        numImpressos = impressos.size();
+
+        eletronicos = livroRepository.findLivrosByType("Eletronico");
+        numEletronicos = eletronicos.size();
+
+        vendas = vendaRepository.findAll();
+        numVendas = vendas.size();
     }
 }

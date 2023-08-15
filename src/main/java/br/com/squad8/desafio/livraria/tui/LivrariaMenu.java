@@ -4,21 +4,21 @@ import br.com.squad8.desafio.livraria.business.LivrariaVirtual;
 import br.com.squad8.desafio.livraria.domain.Eletronico;
 import br.com.squad8.desafio.livraria.domain.Impresso;
 import br.com.squad8.desafio.livraria.domain.Livro;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-@Component
+@Service
 public class LivrariaMenu {
 
-    private static LivrariaVirtual livrariaVirtual;
+    @Autowired
+    private LivrariaVirtual livrariaVirtual;
 
-    public LivrariaMenu(LivrariaVirtual livrariaVirtual) {
-        LivrariaMenu.livrariaVirtual = livrariaVirtual;
-    }
-
-    public static void iniciarMenu() {
+    public void iniciarMenu() {
+        livrariaVirtual.sincronizarListas();
         Scanner input = new Scanner(System.in);
 
         while (true) {
@@ -65,7 +65,7 @@ public class LivrariaMenu {
     }
 
     //Cadastra livros até o usuário voltar ao menu
-    private static void menuCadastrarLivro(Scanner input) {
+    private void menuCadastrarLivro(Scanner input) {
         while (true) {
             System.out.println("Adicionando livro:");
             System.out.print("""
@@ -110,5 +110,13 @@ public class LivrariaMenu {
             livrariaVirtual.cadastrarLivro(livro);
             System.out.println();
         }
+    }
+
+    public LivrariaVirtual getLivrariaVirtual() {
+        return livrariaVirtual;
+    }
+
+    public void setLivrariaVirtual(LivrariaVirtual livrariaVirtual) {
+        this.livrariaVirtual = livrariaVirtual;
     }
 }
