@@ -23,7 +23,6 @@ public class LivrariaVirtual {
     private List<Livro> eletronicos = new ArrayList<>();
     private List<Venda> vendas = new ArrayList<>();
 
-
     private static Integer numImpressos = 0;
     private static Integer numEletronicos = 0;
     private static Integer numVendas = 0;
@@ -164,4 +163,12 @@ public class LivrariaVirtual {
         numVendas = vendas.size();
     }
 
+    public void decrementarEstoque(Venda venda){
+        for (Livro l : venda.getLivros()) {
+            if (l.getClass() == Impresso.class) {
+                ((Impresso) l).setEstoque(((Impresso) l).getEstoque()-1);
+            }
+            livroRepository.saveAll(venda.getLivros());
+        }
+    }
 }

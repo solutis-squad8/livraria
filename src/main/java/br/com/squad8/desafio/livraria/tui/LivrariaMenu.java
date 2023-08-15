@@ -189,7 +189,6 @@ public class LivrariaMenu {
                         venda.addLivro(livro);
                         if (livro.getClass() == Impresso.class) {
                             valor += ((Impresso) livro).getFrete();
-                            ((Impresso) livro).setEstoque(((Impresso) livro).getEstoque() - 1);
                         }
                         valor += livro.getPreco();
                     }
@@ -218,6 +217,7 @@ public class LivrariaMenu {
                         venda.setCliente(nome);
                         venda.setValor(valor);
                         livrariaVirtual.realizarVenda(venda);
+                        livrariaVirtual.decrementarEstoque(venda);
                         System.out.println("Seu pedido foi finalizado!");
                         return;
                     }
