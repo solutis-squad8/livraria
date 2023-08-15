@@ -178,6 +178,7 @@ public class LivrariaMenu {
                         continue;
                     }
                     System.out.println();
+                    System.out.printf("|%5s|%20s|%15s|%15s|%10s|%12s|%10s|%10s|\n", "Id", "Titulo", "Autores", "Editora", "Preço", "Tipo", "Tam/Frete", "Estoque");
                     System.out.println(livro);
                     System.out.print("""
                                                         
@@ -256,11 +257,22 @@ public class LivrariaMenu {
                         System.out.print("Id do livro: ");
                         Long id = input.nextLong();
                         Livro livro = livrariaVirtual.buscarLivroPorId(id);
+                        System.out.println("----------------------------------------------------------------------------------------------------------");
+                        System.out.printf("|%5s|%20s|%15s|%15s|%10s|%12s|%10s|%10s|\n", "Id", "Titulo", "Autores", "Editora", "Preço", "Tipo", "Tam/Frete", "Estoque");
+                        System.out.println("----------------------------------------------------------------------------------------------------------");
                         System.out.println(livro);
                         System.out.println();
                         continue;
                     case 2:
                         List<Livro> listaLivrosImpressos = livrariaVirtual.listarLivrosImpressos();
+                        if(listaLivrosImpressos.isEmpty()){
+                            System.out.println("Nenhum livro impresso encontrado");
+                            System.out.println();
+                            continue;
+                        }
+                        System.out.println("----------------------------------------------------------------------------------------------------------");
+                        System.out.printf("|%5s|%20s|%15s|%15s|%10s|%12s|%10s|%10s|\n", "Id", "Titulo", "Autores", "Editora", "Preço", "Tipo", "Frete", "Estoque");
+                        System.out.println("----------------------------------------------------------------------------------------------------------");
                         for (Livro l : listaLivrosImpressos) {
                             System.out.println(l);
                             System.out.println();
@@ -268,6 +280,14 @@ public class LivrariaMenu {
                         continue;
                     case 3:
                         List<Livro> listaLivrosEletronicos = livrariaVirtual.listarLivrosEletronicos();
+                        if(listaLivrosEletronicos.isEmpty()){
+                            System.out.println("Nenhum livro eletrônico encontrado");
+                            System.out.println();
+                            continue;
+                        }
+                        System.out.println("-----------------------------------------------------------------------------------------------");
+                        System.out.printf("|%5s|%20s|%15s|%15s|%10s|%12s|%10s|\n", "Id", "Titulo", "Autores", "Editora", "Preço", "Tipo", "Tamanho");
+                        System.out.println("-----------------------------------------------------------------------------------------------");
                         for (Livro l : listaLivrosEletronicos) {
                             System.out.println(l);
                             System.out.println();
@@ -275,6 +295,14 @@ public class LivrariaMenu {
                         continue;
                     case 4:
                         List<Livro> listaLivros = livrariaVirtual.listarLivros();
+                        if(listaLivros.isEmpty()){
+                            System.out.println("Nenhum livro encontrado");
+                            System.out.println();
+                            continue;
+                        }
+                        System.out.println("----------------------------------------------------------------------------------------------------------");
+                        System.out.printf("|%5s|%20s|%15s|%15s|%10s|%12s|%10s|%10s|\n", "Id", "Titulo", "Autores", "Editora", "Preço", "Tipo", "Tam/Frete", "Estoque");
+                        System.out.println("----------------------------------------------------------------------------------------------------------");
                         for (Livro l : listaLivros) {
                             System.out.println(l);
                             System.out.println();

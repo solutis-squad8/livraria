@@ -42,9 +42,6 @@ public class Impresso extends Livro{
 
     @Override
     public String toString() {
-        return  super.toString() +
-                "\nTipo: impresso" +
-                "\nFrete: R$" + String.format("%.2f", frete) +
-                "\nEstoque: " + estoque;
+        return  super.toString() + String.format("%10s|%10s|", String.format("R$%.2f", frete), estoque);
     }
 }

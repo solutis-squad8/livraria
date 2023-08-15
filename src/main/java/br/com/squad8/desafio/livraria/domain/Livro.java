@@ -73,11 +73,7 @@ public abstract class Livro {
 
     @Override
     public String toString() {
-        return "Id: " + id +
-                "\nTítulo: " + titulo +
-                "\nAutores: " + autores +
-                "\nEditora: " + editora +
-                "\nPreço: R$" + String.format("%.2f", preco);
+        return String.format("|%5s|%20s|%15s|%15s|%10s|%12s|", id, titulo, autores, editora, String.format("R$%.2f", preco), type);
     }
 
 }

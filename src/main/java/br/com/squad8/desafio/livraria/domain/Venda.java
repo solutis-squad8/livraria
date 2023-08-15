@@ -72,8 +72,10 @@ public class Venda {
     }
 
     public void listarLivros() {
+        String table = String.format("|%5s|%20s|%15s|%15s|%10s|%12s|%10s|%10s|\n", "Id", "Titulo", "Autores", "Editora", "Preço", "Tipo", "Tam/Frete", "Estoque");
+
         for (Livro livro : livros) {
-            System.out.println("--- Livro " + (livros.indexOf(livro) + 1)  + " ---\n" + livro);
+            System.out.println("--- Livro " + (livros.indexOf(livro) + 1)  + " ---\n" + table + livro);
             System.out.println();
         }
     }
@@ -89,8 +91,9 @@ public class Venda {
     @Override
     public String toString() {
         return "Número: " + numero +
-                "\nCliente: '" + cliente +
+                "\nCliente: " + cliente +
                 "\nValor: R$" + String.format("%.2f", valor)+
-                "\nLivros:\n" + printarLivros(livros);
+                "\nLivros:\n" + String.format("|%5s|%20s|%15s|%15s|%10s|%12s|%10s|%10s|\n", "Id", "Titulo", "Autores", "Editora", "Preço", "Tipo", "Tam/Frete", "Estoque") +
+                printarLivros(livros);
     }
 }

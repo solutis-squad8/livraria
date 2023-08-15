@@ -28,8 +28,6 @@ public class Eletronico extends Livro{
 
     @Override
     public String toString() {
-        return super.toString() +
-                "\nTipo: eletrônico" +
-                "\nTamanho: " + tamanho + "KB";
+        return super.toString() + String.format("%10s|", String.format("%.2fKb", tamanho));
     }
 }
