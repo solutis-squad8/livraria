@@ -151,5 +151,12 @@ public class LivrariaVirtual {
             System.out.println("Limite de vendas excedido!");
         }
     }
-
+    public void decrementarEstoque(Venda venda){
+        for (Livro l : venda.getLivros()) {
+            if (l.getClass() == Impresso.class) {
+                ((Impresso) l).setEstoque(((Impresso) l).getEstoque()-1);
+            }
+            livroRepository.saveAll(venda.getLivros());
+        }
+    }
 }
