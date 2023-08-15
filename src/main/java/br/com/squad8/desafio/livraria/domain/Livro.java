@@ -77,8 +77,7 @@ public abstract class Livro {
                 "\nTítulo: " + titulo +
                 "\nAutores: " + autores +
                 "\nEditora: " + editora +
-                "\nPreço: " + preco;
+                "\nPreço: R$" + String.format("%.2f", preco);
     }
-
 
 }

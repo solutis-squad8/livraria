@@ -1,21 +1,20 @@
 package br.com.squad8.desafio.livraria.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-public class Venda{
+public class Venda {
 
     @Id
     private Long numero;
     private String cliente;
     private Float valor;
-    @OneToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     private List<Livro> livros;
+    @Transient
     private static Long numVendas = 0L;
 
     public Venda(String cliente, Float valor) {
@@ -27,7 +26,9 @@ public class Venda{
     }
 
     public Venda() {
-
+        this.livros = new ArrayList<>();
+        numVendas++;
+        this.numero = numVendas;
     }
 
     public Long getNumero() {
@@ -54,18 +55,42 @@ public class Venda{
         this.valor = valor;
     }
 
+    public List<Livro> getLivros() {
+        return livros;
+    }
+
+    public void setLivros(List<Livro> livros) {
+        this.livros = livros;
+    }
+
     public Long getNumVendas() {
         return numVendas;
     }
 
-    public void addLivro(Livro livro){
+    public void addLivro(Livro livro) {
         this.livros.add(livro);
     }
 
     public void listarLivros() {
         for (Livro livro : livros) {
-            System.out.println("Livro " + livros.indexOf(livro) + ": \n" + livro);
+            System.out.println("--- Livro " + (livros.indexOf(livro) + 1)  + " ---\n" + livro);
             System.out.println();
         }
+    }
+
+    private String printarLivros(List<Livro> livros) {
+        StringBuilder imprimir = new StringBuilder();
+        for (Livro livro : livros) {
+            imprimir.append(livro).append("\n");
+        }
+        return imprimir.toString();
+    }
+
+    @Override
+    public String toString() {
+        return "Número: " + numero +
+                "\nCliente: '" + cliente +
+                "\nValor: R$" + String.format("%.2f", valor)+
+                "\nLivros:\n" + printarLivros(livros);
     }
 }

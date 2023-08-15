@@ -8,15 +8,19 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 public class LivrariaApplication implements CommandLineRunner {
-    @Autowired
-    LivrariaMenu livrariaMenu;
+
+    private final LivrariaMenu livrariaMenu;
+
+    public LivrariaApplication(LivrariaMenu livrariaMenu) {
+        this.livrariaMenu = livrariaMenu;
+    }
 
     public static void main(String[] args) {
         SpringApplication.run(LivrariaApplication.class, args);
     }
 
     @Override
-    public void run(String... args) throws Exception {
+    public void run(String... args) {
         livrariaMenu.iniciarMenu();
     }
 
