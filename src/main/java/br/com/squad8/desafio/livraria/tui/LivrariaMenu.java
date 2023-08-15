@@ -21,6 +21,7 @@ public class LivrariaMenu {
     private final Scanner input = new Scanner(System.in);
 
     public void iniciarMenu() {
+        livrariaVirtual.sincronizarListas();
         while (true) {
             System.out.println("""
                     --- Menu de Opções ---

@@ -19,9 +19,10 @@ public class LivrariaVirtual {
     private static final int MAX_ELETRONICOS = 20;
     private static final int MAX_VENDAS = 50;
 
-    private List<Impresso> impressos = new ArrayList<>();
-    private List<Eletronico> eletronicos = new ArrayList<>();
+    private List<Livro> impressos = new ArrayList<>();
+    private List<Livro> eletronicos = new ArrayList<>();
     private List<Venda> vendas = new ArrayList<>();
+
 
     private static Integer numImpressos = 0;
     private static Integer numEletronicos = 0;
@@ -36,19 +37,19 @@ public class LivrariaVirtual {
 
     }
 
-    public List<Impresso> getImpressos() {
+    public List<Livro> getImpressos() {
         return impressos;
     }
 
-    public void setImpressos(List<Impresso> impressos) {
+    public void setImpressos(List<Livro> impressos) {
         this.impressos = impressos;
     }
 
-    public List<Eletronico> getEletronicos() {
+    public List<Livro> getEletronicos() {
         return eletronicos;
     }
 
-    public void setEletronicos(List<Eletronico> eletronicos) {
+    public void setEletronicos(List<Livro> eletronicos) {
         this.eletronicos = eletronicos;
     }
 
@@ -150,6 +151,17 @@ public class LivrariaVirtual {
         else {
             System.out.println("Limite de vendas excedido!");
         }
+    }
+
+    public void sincronizarListas() {
+        impressos = livroRepository.findLivrosByType("Impresso");
+        numImpressos = impressos.size();
+
+        eletronicos = livroRepository.findLivrosByType("Eletronico");
+        numEletronicos = eletronicos.size();
+
+        vendas = vendaRepository.findAll();
+        numVendas = vendas.size();
     }
 
 }
