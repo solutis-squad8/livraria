@@ -1,7 +1,7 @@
 # livraria
 
 Necessário ter o postgreSQL instalado na máquina conectado a porta 5432. Crie um databse com nome 'livraria'. Na pasta src/main/resources/, altere o application.properties, adicionando o username e password do seu banco. Com isso, é possível rodar o projeto. 
-Caso ocorra algum erro de dependência, recarrege o projeto.
+Caso ocorra algum erro de dependência, recarregue o projeto.
 
 ![image](https://github.com/solutis-squad8/livraria/assets/71406140/bdd544b2-31ac-4e2f-9f47-51c47e6f65a1)
 
